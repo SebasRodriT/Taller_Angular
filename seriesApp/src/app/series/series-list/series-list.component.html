@@ -1,0 +1,40 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8">
+      <input type="text" [(ngModel)]="searchText" (input)="applyFilter()" placeholder="Buscar por nombre" class="form-control mb-3">
+      <table class="table table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Channel</th>
+            <th scope="col">Seasons</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let serie of series" (click)="selectSerie(serie)" style="cursor: pointer;">
+            <td>{{ serie.id }}</td>
+            <td>{{ serie.name }}</td>
+            <td>{{ serie.channel }}</td>
+            <td>{{ serie.seasons }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row justify-content-end">
+        <h5 class="col-4"><strong>Season Average:</strong></h5>
+        <h5 class="col-1"><strong>{{ averageSeasons | number:'1.1-1' }}</strong></h5>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div *ngIf="selectedSerie" class="card">
+        <img [src]="selectedSerie.image" class="card-img-top" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{ selectedSerie.name }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ selectedSerie.channel }}</h6>
+          <p class="card-text">{{ selectedSerie.description }}</p>
+          <a [href]="selectedSerie.link" target="_blank" class="card-link">Ver más</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
