@@ -1,4 +1,3 @@
-// src/app/components/series-list/series-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { SeriesService } from '../series.service';
 import { Serie } from '../series';
@@ -9,16 +8,20 @@ import { Serie } from '../series';
   styleUrls: ['./series-list.component.css']
 })
 export class SeriesListComponent implements OnInit {
-  series: Serie[] = [];
+  allSeries: Serie[] = []; // Para almacenar todas las series sin filtrar
+  series: Serie[] = [];    // Para almacenar las series filtradas
   selectedSerie: Serie | null = null;
   averageSeasons: number = 0;
-searchText: any;
+  searchText: string = '';
 
   constructor(private seriesService: SeriesService) { }
 
   ngOnInit(): void {
-    this.series = this.seriesService.getSeries();
-    this.averageSeasons = this.getAverageSeasons();
+    this.seriesService.getSeries().subscribe((data) => {
+      this.allSeries = data;   // Guardamos todas las series originales
+      this.series = data;       // Inicialmente, mostramos todas las series
+      this.averageSeasons = this.getAverageSeasons();
+    });
   }
 
   getAverageSeasons(): number {
@@ -30,11 +33,11 @@ searchText: any;
   selectSerie(serie: Serie): void {
     this.selectedSerie = serie;
   }
+
   applyFilter(): void {
-    this.series = this.seriesService.getSeries().filter(serie => 
+    this.series = this.allSeries.filter(serie =>
       serie.name.toLowerCase().includes(this.searchText.toLowerCase())
     );
     this.averageSeasons = this.getAverageSeasons();
   }
-  
 }

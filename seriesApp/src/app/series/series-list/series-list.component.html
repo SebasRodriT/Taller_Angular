@@ -27,12 +27,14 @@
     </div>
     <div class="col-md-4">
       <div *ngIf="selectedSerie" class="card">
-        <img [src]="selectedSerie.image" class="card-img-top" alt="Card image cap">
+        <!-- Cambiado de 'image' a 'poster' -->
+        <img [src]="selectedSerie.poster" class="card-img-top" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">{{ selectedSerie.name }}</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{ selectedSerie.channel }}</h6>
           <p class="card-text">{{ selectedSerie.description }}</p>
-          <a [href]="selectedSerie.link" target="_blank" class="card-link">Ver más</a>
+          <!-- Cambiado de 'link' a 'webpage' -->
+          <a [href]="selectedSerie.webpage" target="_blank" class="card-link">Ver más</a>
         </div>
       </div>
     </div>
